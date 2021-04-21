@@ -73,6 +73,9 @@ type NetworkConfig struct {
 	// IPAM to use for the Calico Plugin (e.g., host-local or Calico)
 	// +optional
 	IPAM *IPAM `json:"ipam,omitempty"`
+	// FeatureControl controls specific features to be enabled in calico
+	// +optional
+	FeatureControl *FeatureControl `json:"feature_control,omitempty"`
 	// IPv4 contains configuration for calico ipv4 specific settings
 	// +optional
 	IPv4 *IPv4 `json:"ipv4,omitempty"`
@@ -111,6 +114,11 @@ type IPAM struct {
 	// CIDR defines the CIDR block to be used
 	// +optional
 	CIDR *CIDR `json:"cidr,omitempty"`
+}
+
+type FeatureControl struct {
+	// Enabled Floating IPs. Only works in conjunction with the calico-ipam configuration
+	FloatingIPs bool `json:"floating_ips,omitempty"`
 }
 
 // Typha defines the block with configurations for calico typha
