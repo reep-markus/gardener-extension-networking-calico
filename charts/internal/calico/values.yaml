@@ -10,6 +10,8 @@ config:
   ipam:
     type: "host-local"
     # subnet: "usePodCidr"
+  feature_control: 
+    floating_ips: false
   kubeControllers:
     enabled: true
   typha:

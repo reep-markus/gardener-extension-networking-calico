@@ -38,6 +38,7 @@ type calicoConfig struct {
 	Felix           felix                  `json:"felix"`
 	IPv4            ipv4                   `json:"ipv4"`
 	IPAM            ipam                   `json:"ipam"`
+	FeatureControl  featureControl         `json:"feature_control"`
 	Typha           typha                  `json:"typha"`
 	KubeControllers kubeControllers        `json:"kubeControllers"`
 	VethMTU         string                 `json:"veth_mtu"`
@@ -61,6 +62,10 @@ type ipv4 struct {
 type ipam struct {
 	IPAMType string `json:"type"`
 	Subnet   string `json:"subnet"`
+}
+
+type featureControl struct {
+	floating_ips bool `json: floating_ips`
 }
 
 type kubeControllers struct {
@@ -190,6 +195,11 @@ func generateChartValues(config *calicov1alpha1.NetworkConfig) (*calicoConfig, e
 		}
 		if config.IPAM.Type == hostLocal && config.IPAM.CIDR != nil {
 			c.IPAM.Subnet = string(*config.IPAM.CIDR)
+		}
+		if config.FeatureControl != nil {
+			if config.FeatureControl.Type != "" {
+				c.FeatureControl.floating_ips = config.FeatureControl.Type
+			}
 		}
 	}
 
