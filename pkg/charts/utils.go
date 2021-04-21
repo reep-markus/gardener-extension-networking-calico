@@ -197,8 +197,8 @@ func generateChartValues(config *calicov1alpha1.NetworkConfig) (*calicoConfig, e
 			c.IPAM.Subnet = string(*config.IPAM.CIDR)
 		}
 		if config.FeatureControl != nil {
-			if config.FeatureControl.Type != "" {
-				c.FeatureControl.floating_ips = config.FeatureControl.Type
+			if config.FeatureControl.FloatingIPs != nil {
+				c.FeatureControl.floating_ips = config.FeatureControl.FloatingIPs
 			}
 		}
 	}
